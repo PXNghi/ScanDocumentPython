@@ -10,6 +10,7 @@ import img2pdf
 from PIL import Image
 from deep_translator import GoogleTranslator
 import tkinter as tk
+from tkinter import filedialog
 
 # Hay doc file README de biet them mot so luu y ve chuong trinh a
 
@@ -20,9 +21,21 @@ TXT_DIR = 'txts/'
 
 # Nhap hinh o day
 #################################################################
-image_path = 'sample1.jpg'
+image_name = 'sample1.jpg'
 #################################################################
-orig_image = cv2.imread(SAMPLE_DIR + image_path)
+orig_image = cv2.imread(SAMPLE_DIR + image_name)
+
+def select_image():
+    image_path = filedialog.askopenfilename(title="Chọn ảnh", filetypes=[("Image files", ".jpg .jpeg .png .bmp")])
+    image_name = os.path.basename(image_path)
+    if image_path:
+        check_file_existed(dir=PDF_DIR, image_path=image_name, ext='pdf')
+        check_file_existed(dir=TXT_DIR, image_path=image_name, ext='txt')
+        wrap_image = processContours(cv2.imread(image_path))
+        itotext(wrap_image, image_path)
+        # Gọi hàm xử lý ảnh tại đây
+        print("Ảnh đã được chọn:", image_path)
+
 
 def resizeImage(image, width = 500):
     # get width and height of image
@@ -99,7 +112,7 @@ def processContours(orig_image):
     # apply adaptive threshold to get black and white effect
     thresh = cv2.adaptiveThreshold(sharpen, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 21, 15)
     # save the transformed image
-    save_file_to_dir(image_path, thresh)
+    save_file_to_dir(image_name, thresh)
 
     return thresh
 
@@ -163,10 +176,13 @@ def display_text_in_window(text, title):
     root.mainloop()
 
 def main():
-    check_file_existed(dir=PDF_DIR, image_path=image_path, ext='pdf')
-    check_file_existed(dir=TXT_DIR, image_path=image_path, ext='txt')
-    wrap_image = processContours(orig_image)
-    itotext(wrap_image, image_path)
+    root = tk.Tk()
+    root.title("Chọn ảnh")
+
+    button = tk.Button(root, text="Chọn ảnh", command=select_image)
+    button.pack(padx=10, pady=10)
+
+    root.mainloop()
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
