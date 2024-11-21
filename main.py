@@ -19,22 +19,21 @@ OUTPUT_DIR = 'outputs/'
 PDF_DIR = 'pdfs/'
 TXT_DIR = 'txts/'
 
-# Nhap hinh o day
-#################################################################
-image_name = 'sample1.jpg'
-#################################################################
-orig_image = cv2.imread(SAMPLE_DIR + image_name)
-
 def select_image():
     image_path = filedialog.askopenfilename(title="Chọn ảnh", filetypes=[("Image files", ".jpg .jpeg .png .bmp")])
+    global image_name
     image_name = os.path.basename(image_path)
     if image_path:
         check_file_existed(dir=PDF_DIR, image_path=image_name, ext='pdf')
         check_file_existed(dir=TXT_DIR, image_path=image_name, ext='txt')
         wrap_image = processContours(cv2.imread(image_path))
-        itotext(wrap_image, image_path)
+        global root
+        root.destroy()
+        itotext(wrap_image, image_name)
         # Gọi hàm xử lý ảnh tại đây
         print("Ảnh đã được chọn:", image_path)
+    else:
+        print("Ảnh không hợp lệ")
 
 
 def resizeImage(image, width = 500):
@@ -120,7 +119,6 @@ def save_file_to_dir(image_path, image):
     basename = os.path.basename(image_path)
     cv2.imwrite(OUTPUT_DIR + basename, image)
     cv2.imwrite(PDF_DIR + basename, image)
-    print("Đang xử lý " + image_path + "...")
 
 def replace_extension(text, ext):
     text_index = text.find('.')
@@ -133,6 +131,7 @@ def check_file_existed(dir, image_path, ext):
         os.remove(dir + image_path)
 
 def img_to_pdf(image_path):
+    print("path: " + image_path)
     image = Image.open(image_path)
     pdf_bytes = img2pdf.convert(image.filename)
     file = open(image_path, 'wb')
@@ -160,9 +159,9 @@ def translate_text(text):
     return translated
 
 def itotext(image, image_path):
+    print("image_path: " + image_path)
     pytesseract.pytesseract.tesseract_cmd = 'c:\\Program Files (x86)\\Tesseract-OCR\\tesseract.exe'
     text = pytesseract.image_to_string(image)
-    print(text)
     write_to_txt(text=text, image_path=image_path)
     img_to_pdf(PDF_DIR + image_path)
     return text
@@ -176,6 +175,7 @@ def display_text_in_window(text, title):
     root.mainloop()
 
 def main():
+    global root
     root = tk.Tk()
     root.title("Chọn ảnh")
 
