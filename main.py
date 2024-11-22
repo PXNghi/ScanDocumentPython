@@ -11,6 +11,7 @@ from PIL import Image
 from deep_translator import GoogleTranslator
 import tkinter as tk
 from tkinter import filedialog
+from tkinter import scrolledtext
 
 # Hay doc file README de biet them mot so luu y ve chuong trinh a
 
@@ -143,20 +144,45 @@ def img_to_pdf(image_path):
     print("File PDF đã được tạo thành công. Mời kiểm tra thư mục pdfs.")
     return p
 
+def get_highlighted_text(text_box):
+    try:
+        return text_box.selection_get()
+    except tk.TclError:
+        return ""
+
+def translate_highlighted_text(text_box, translate_text_func):
+    highlighted_text = get_highlighted_text(text_box)
+    if highlighted_text:
+        translated_text = translate_text_func(highlighted_text)
+        print(translated_text)
+
+def display_text_in_window(text, title, translate_text_func, isTranslated):
+    root = tk.Tk()
+    root.title(title)
+    text_box = scrolledtext.ScrolledText(root, width=50, height=10)
+    text_box.insert(tk.INSERT, text)
+    text_box.pack()
+
+    if isTranslated:
+        button = tk.Button(root, text="Translate Highlighted Text", command=lambda: translate_highlighted_text(text_box, translate_text_func))
+        button.pack()
+
+    root.mainloop()
+
+def translate_text(text):
+    translated = GoogleTranslator(source='auto', target='vi').translate(text)
+    return translated
+
 def write_to_txt(text, image_path):
-    display_text_in_window(text=text, title='Original') 
+    display_text_in_window(text=text, title='Original', translate_text_func=translate_text, isTranslated=True)
     text = translate_text(text)
-    display_text_in_window(text=text, title='Translated') 
+    display_text_in_window(text=text, title='Translated', translate_text_func=translate_text, isTranslated=False)
     file = open(TXT_DIR + image_path, "x", encoding='utf-8')
     file.write(text)
     file.close()
     image_path = TXT_DIR + image_path
     p = replace_extension(image_path, 'txt')
     os.rename(image_path, p)
-
-def translate_text(text):
-    translated = GoogleTranslator(source='auto', target='vi').translate(text)
-    return translated
 
 def itotext(image, image_path):
     print("image_path: " + image_path)
@@ -165,14 +191,6 @@ def itotext(image, image_path):
     write_to_txt(text=text, image_path=image_path)
     img_to_pdf(PDF_DIR + image_path)
     return text
-
-def display_text_in_window(text, title):
-    root = tk.Tk()
-    root.title(title)
-    text_widget = tk.Text(root)
-    text_widget.insert("1.0", text)
-    text_widget.pack()
-    root.mainloop()
 
 def main():
     global root
