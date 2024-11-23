@@ -150,22 +150,30 @@ def get_highlighted_text(text_box):
     except tk.TclError:
         return ""
 
-def translate_highlighted_text(text_box, translate_text_func):
+def translate_highlighted_text(text_box, translate_text_func, translated_text_box):
     highlighted_text = get_highlighted_text(text_box)
     if highlighted_text:
         translated_text = translate_text_func(highlighted_text)
+        translated_text_box.insert(tk.END, translated_text + "\n")
+        translated_text_box.pack()
         print(translated_text)
 
-def display_text_in_window(text, title, translate_text_func, isTranslated):
+def display_text_in_window(text, title, translate_text_func, isTranslateAll):
     root = tk.Tk()
     root.title(title)
-    text_box = scrolledtext.ScrolledText(root, width=50, height=10)
+    text_box = scrolledtext.ScrolledText(root, width=80, height=20)
     text_box.insert(tk.INSERT, text)
     text_box.pack()
 
-    if isTranslated:
-        button = tk.Button(root, text="Translate Highlighted Text", command=lambda: translate_highlighted_text(text_box, translate_text_func))
+    if isTranslateAll == False:
+        translated_root = tk.Tk()
+        translated_root.title("Translated Text")
+        translated_text_box = scrolledtext.ScrolledText(translated_root, width=80, height=20)
+        button = tk.Button(root, text="Translate Highlighted Text", command=lambda: translate_highlighted_text(text_box, translate_text_func, translated_text_box))
         button.pack()
+        all_text_button = tk.Button(root, text="Translate All Text", command=lambda: translate_all_text(text=text))
+        all_text_button.pack()
+        translated_root.mainloop()
 
     root.mainloop()
 
@@ -173,10 +181,12 @@ def translate_text(text):
     translated = GoogleTranslator(source='auto', target='vi').translate(text)
     return translated
 
-def write_to_txt(text, image_path):
-    display_text_in_window(text=text, title='Original', translate_text_func=translate_text, isTranslated=True)
+def translate_all_text(text):
     text = translate_text(text)
-    display_text_in_window(text=text, title='Translated', translate_text_func=translate_text, isTranslated=False)
+    display_text_in_window(text=text, title='Translated', translate_text_func=translate_text, isTranslateAll=True)
+
+def write_to_txt(text, image_path):
+    display_text_in_window(text=text, title='Original', translate_text_func=translate_text, isTranslateAll=False)
     file = open(TXT_DIR + image_path, "x", encoding='utf-8')
     file.write(text)
     file.close()

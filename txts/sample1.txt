@@ -1,47 +1,54 @@
-Liệu có thể hoàn toàn không cần giấy tờ trong văn phòng luật không?! Trên http://above,thelaw.com/20l4/07/is-itepossibl‘e-toego-completer-pape...
+ 
+
+ 
+
+is It Possible To Go Completely Paperless InA Law Office?! Above http://above,thelaw.com/20l4/07/is-itepossibl‘e-toego-completer-pape...
 
 "29f12'
 
+ 
+
 E]
 
-Đối với những người còn lại, vấn đề là hai điều: (1) sự tiện lợi và (2) giờ hiệu quả/có thể tính phí
-. Tôi biết thật kỳ lạ khi thấy giờ hiệu quả và giờ có thể tính phí được sử dụng trong cùng một câu
-mà không có từ phủ định ở đâu đó, nhưng nếu bạn đã từng mất ba giờ
-để tìm kiếm khắp văn phòng một tài liệu đã được đặt trên
-bàn làm việc của nhân viên lưu trữ tuần trước, bạn sẽ biết tôi đang nói về điều gì. Đôi khi, khi bạn
-tính phí theo giờ, thì làm việc hiệu quả là điều tốt. Vì vậy, tôi muốn thảo luận xem liệu có thể
-hoàn toàn không cần giấy tờ hay không và chúng ta có thể thực hiện những bước nào để đạt được điều đó.
+For the rest of usj it is a matter of two things: (1) convenience, and (2) efﬁciency/billable
+hours. I know it’s weird to see efﬁciency and billable hours used in the same sentence
+without a negative in there somewhere, but if you have ever had three hours of time
+written off for looking all over the whole ofﬁce for that one document that was dropped on
+the ﬁle clerk’s desk last week, you know what I’m talking about. Sometimes when you
+charge by the‘hour, it is good to work efﬁciently. So, I Want to discuss whether it’s possible
+to go almost completely paperless and what steps we can take to get there.
 
-Tại sao không cần giấy tờ?
+Why Go Paperless?
 
-Tôi chủ yếu không cần giấy tờ và thật tuyệt. Tôi biết tất cả đồ đạc của mình ở đâu và tôi có thể tìm thấy chúng
-ngay lập tức. Bàn làm việc của tôi không lộn xộn. Tôi không phải lo lắng khi vứt hồ sơ y tế của khách hàng
-vào thùng rác hoặc lo lắng về việc hủy tài liệu. Văn phòng của tôi không bị tê liệt khi hộp mực
-bị hỏng hoặc khi máy báo có kẹt giấy ở khay 3, nhưng tôi đã tìm
-và không thấy kẹt giấy. Tôi có diện tích lưu trữ hồ sơ và tủ đựng giấy/máy in
+I am mostly paperless and it’s great. I know where all of my things are and I can ﬁnd them
+instantly. My desk has no clutter. I don’t have to get nervous when I put client medical
+records in the trash or worry about shredding. My ofﬁce is not paralyzed when the toner
+Waste drum breaks or when the machine tells me there is a jam in tray 3, but I’m looking
+there and there is no jam. I have a signiﬁcantly reduced ﬁle storage area and paper/printer
 
-giảm đáng kể. Tóm lại, văn phòng của tôi trông giống như phòng làm việc của thuyền trưởng Picard, chỉ có điều ít
-Earl Grey hơn.
+supply closet. In short, my ofﬁce looks like Captain Picard’s ready room, only with less
+Earl Grey.
 
-, Đôi khi bạn sẽ phải in tài liệu trên giấy vì bạn phải
+, There are some times when you are going to have to print things on paper because you go
 
-ra tòa và phải làm bìa đựng bằng chứng, hoặc bạn sống ở một Làng chưa có dịch vụ nộp hồ sơ điện tử
-cho tòa án tiểu bang, nhưng chúng tôi không thể khắc phục được điều đó. Thay vào đó, tôi chỉ thảo luận ở đây Những gì chúng ta có thể làm
+to trial and have to make exhibit binders, or you live in a Village that does not have e—ﬁling
+for state courts yet, but we can’t ﬁx that. Instead, I am only discussing here What we can do
 
-để tiến gần nhất có thể đến việc không dùng giấy.
+to get as close as possible to going paperless.
 
-Đóng dấu Bates theo cách cũ
+Bates Stamping the Old Way
 
-Tôi đã làm việc cho một công ty đóng dấu Bates bằng tay Với nhãn thư có thể in.
+I worked for a ﬁrm that did all of its Bates stamping by hand With printable mailing labels.
 
-Tất cả các tài liệu đóng dấu Bates sẽ có một tệp "Bản gốc", bản sao "đóng dấu Bates" và
-bản sao "Đã sản xuất". Bản sao Bates trông thật lố bịch vì góc dưới bên phải
-dày gấp đôi do nhãn dán. Nó khiến tệp xòe ra và không bao giờ
+All Bates-stamped documents would have an “Original” ﬁle, the “Bates stamp” copy, and
+the “Produced” copy. The Bates copy looked ridiculous because the bottom right corner
+was twice as thick because of the sticker label. It made the ﬁle fan out and it would never
 
-. xếp chồng ngay trên kệ.
+. stack right on the shelf.
 
-Đóng dấu Bates theo cách mới
+Bates Stamping the New Way
 
-Adobe Acrobat đi kèm với công cụ đóng dấu Bates:
+Adobe Acrobat comes with a Bates—stamping tool:
 
-6/4/2015 9:08 CH.
+4/6/2015 9:08 PM.
+
