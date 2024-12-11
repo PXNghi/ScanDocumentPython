@@ -31,7 +31,6 @@ def select_image():
         global root
         root.destroy()
         itotext(wrap_image, image_name)
-        # Gọi hàm xử lý ảnh tại đây
         print("Ảnh đã được chọn:", image_path)
     else:
         print("Ảnh không hợp lệ")
@@ -50,7 +49,7 @@ def interactive_get_contour(screenCnt, image):
     poly = Polygon(screenCnt, animated=True, fill=False, color="yellow", linewidth=5)
     fig, ax = plt.subplots()
     ax.add_patch(poly)
-    ax.set_title(('Kéo các góc để định vị tài liệu.'))
+    ax.set_title(('Kéo các góc để định vị tài liệu.\nSau khi đã xác định góc, tắt cửa sổ để chương trình tiếp tục hoạt động!'))
     p = poly_f.PolygonInteractor(ax, poly)
     plt.imshow(image)
     plt.show()

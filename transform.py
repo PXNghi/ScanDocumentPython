@@ -1,70 +1,58 @@
-# import the necessary packages
 from scipy.spatial import distance as dist
 import numpy as np
 import cv2
 
 def order_points(pts):
-    # sort the points based on their x-coordinates
+    # sắp xếp các điểm dựa trên trục x
     xSorted = pts[np.argsort(pts[:, 0]), :]
 
-    # grab the left-most and right-most points from the sorted
-    # x-roodinate points
+    # lấy điểm trái nhất và phải nhất trên trục x
     leftMost = xSorted[:2, :]
     rightMost = xSorted[2:, :]
 
-    # now, sort the left-most coordinates according to their
-    # y-coordinates so we can grab the top-left and bottom-left
-    # points, respectively
+    # sắp xếp điểm trái nhất dựa trên tọa độ trục y để lấy được điểm trái trên (top-left) và trái dưới (bottom-left)
     leftMost = leftMost[np.argsort(leftMost[:, 1]), :]
     (tl, bl) = leftMost
 
-    # now that we have the top-left coordinate, use it as an
-    # anchor to calculate the Euclidean distance between the
-    # top-left and right-most points; by the Pythagorean
-    # theorem, the point with the largest distance will be
-    # our bottom-right point
+    # khi có được điểm trái trên, tính khoảng cách Euclide giữa trái trên (top-left) và
+    # điểm phải nhất theo định lý Pytago, điểm có khoảng cách lớn nhất sẽ là
+    # điểm phải dưới (bottom-right)
     D = dist.cdist(tl[np.newaxis], rightMost, "euclidean")[0]
     (br, tr) = rightMost[np.argsort(D)[::-1], :]
 
-    # return the coordinates in top-left, top-right,
-    # bottom-right, and bottom-left order
+    # trả về một mảng chứa các điểm đã sắp xếp theo thứ tự top-left, top-right, bottom-right, bottom-left
     return np.array([tl, tr, br, bl], dtype = "float32")
 
 def four_point_transform(image, pts):
-    # obtain a consistent order of the points and unpack them
-    # individually
+    # lấy mảng vừa sắp xếp và đưa chúng ra thành từng biến riêng lẻ
     rect = order_points(pts)
     print(rect)
     (tl, tr, br, bl) = rect
 
-    # compute the width of the new image, which will be the
-    # maximum distance between bottom-right and bottom-left
-    # x-coordiates or the top-right and top-left x-coordinates
+    # tính chiều rộng của hình bằng cách tính khoảng cách giữa phải dưới (bottom-right) và trái dưới (bottom-left)
+    # hoặc khoảng cách giữa điểm phải trên (top-right) và điểm trái trên (top-left)
+    # sau đó so sánh hai khoảng cách và lấy khoảng cách xa nhất
     widthA = np.sqrt(((br[0] - bl[0]) ** 2) + ((br[1] - bl[1]) ** 2))
     widthB = np.sqrt(((tr[0] - tl[0]) ** 2) + ((tr[1] - tl[1]) ** 2))
     maxWidth = max(int(widthA), int(widthB))
 
-    # compute the height of the new image, which will be the
-    # maximum distance between the top-right and bottom-right
-    # y-coordinates or the top-left and bottom-left y-coordinates
+    # chiều cao cũng tương tự bằng cách so sánh khoảng cách xa nhất giữa phải trên (top-right) và phải dưới (bottom-right)
+    # hoặc trái trên (top-left) và trái dưới (bottom-left)
     heightA = np.sqrt(((tr[0] - br[0]) ** 2) + ((tr[1] - br[1]) ** 2))
     heightB = np.sqrt(((tl[0] - bl[0]) ** 2) + ((tl[1] - bl[1]) ** 2))
     maxHeight = max(int(heightA), int(heightB))
 
-    # now that we have the dimensions of the new image, construct
-    # the set of destination points to obtain a "birds eye view",
-    # (i.e. top-down view) of the image, again specifying points
-    # in the top-left, top-right, bottom-right, and bottom-left
-    # order
+
+    # sắp xếp thành một array với các điểm đã tìm được ở trên để tạo thành một hình chữ nhật
+    # và tiến hành biến đổi hình ảnh
     dst = np.array([
         [0, 0],
         [maxWidth - 1, 0],
         [maxWidth - 1, maxHeight - 1],
         [0, maxHeight - 1]], dtype = "float32")
 
-    # compute the perspective transform matrix and then apply it
+    # biến đổi hình ảnh
     M = cv2.getPerspectiveTransform(rect, dst)
     warped = cv2.warpPerspective(image, M, (maxWidth, maxHeight))
 
-    # return the warped image
     return warped
